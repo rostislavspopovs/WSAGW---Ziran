@@ -26,8 +26,16 @@ public class PlayerController : MonoBehaviour
 
     //my stuff
     public bool ended = false;
+    public AudioSource _stepaudio;
+    public Transform symbols;
 
     private bool walking;
+
+    //audio stuff
+    public List<AudioClip> footstepSamples;
+
+    private float tmpTimeBetweenTwoSteps = 0.25f;
+    private float _Timer = 0f;
 
     // Start is called before the first frame update
     void Start()
@@ -102,9 +110,55 @@ public class PlayerController : MonoBehaviour
         if (walking && _grounded)
         {
             sample = 1 - sample;
-            playFootstep(sample);
+            PlayFootstep(sample);
         }
         **/
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Symbol")
+        {
+            other.transform.SetParent(symbols);
+            Destroy(other.GetComponent<MeshRenderer>());
+        }
+
+        if (other.tag == "altar")
+        {
+            if (symbols.childCount == other.GetComponent<TowerController>().symbolNum)
+            {
+                //TODO: change bgm and terrain
+                foreach (Transform symbol in symbols)
+                {
+                    Destroy(symbol.gameObject);
+                }
+            }
+        }
+    }
+
+    private void PlayFootstep(int sample)
+    {
+        if (!_stepaudio.isPlaying)
+        {
+            if (_Timer >= tmpTimeBetweenTwoSteps)
+            {
+
+                _stepaudio.clip = footstepSamples[sample];
+
+                int tmpRandomPitch = UnityEngine.Random.Range(-5, 6);
+                _stepaudio.pitch = 1 + (tmpRandomPitch * .0001f);
+
+                int tmpRandomStartPoint = UnityEngine.Random.Range(0, 9);
+                _stepaudio.time = tmpRandomStartPoint * .001f;
+
+                _stepaudio.Play();
+                _Timer = 0;
+            }
+            else
+            {
+                _Timer = Mathf.MoveTowards(_Timer, tmpTimeBetweenTwoSteps, Time.deltaTime);
+            }
+        }
     }
 
     void ToggleMouse()
