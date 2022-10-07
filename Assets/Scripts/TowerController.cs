@@ -6,7 +6,7 @@ public class TowerController : MonoBehaviour
 {
     public int symbolNum;
     public AudioClip nextBGM;
-    public gameObject doors;
+    public GameObject doors;
 
     // Start is called before the first frame update
     void Start()
