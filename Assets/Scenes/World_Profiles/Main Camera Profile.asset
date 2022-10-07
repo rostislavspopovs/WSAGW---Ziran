@@ -18,7 +18,7 @@ MonoBehaviour:
     value: 1
   mode:
     overrideState: 1
-    value: 0
+    value: 3
   sensitivityDepth:
     overrideState: 1
     value: -23.18
@@ -30,10 +30,10 @@ MonoBehaviour:
     value: 0.2
   edgeExp:
     overrideState: 1
-    value: 3.8
+    value: 0.89
   sampleDist:
     overrideState: 1
-    value: 1.1
+    value: 0.57
   edgesOnly:
     overrideState: 1
     value: 0.628
