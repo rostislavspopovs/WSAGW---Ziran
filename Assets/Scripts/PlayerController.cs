@@ -27,9 +27,10 @@ public class PlayerController : MonoBehaviour
     //my stuff
     public bool ended = false;
     public AudioSource _stepaudio;
-    public Transform symbols;
+    public AudioSource _bgmsource;
 
     private bool walking;
+    private int symbols;
 
     //audio stuff
     public List<AudioClip> footstepSamples;
@@ -119,19 +120,20 @@ public class PlayerController : MonoBehaviour
     {
         if (other.tag == "Symbol")
         {
-            other.transform.SetParent(symbols);
-            Destroy(other.GetComponent<MeshRenderer>());
+            symbols += 1;
         }
 
         if (other.tag == "altar")
         {
-            if (symbols.childCount == other.GetComponent<TowerController>().symbolNum)
+            TowerController towerController = other.transform.parent.gameObject.GetComponent<TowerController>();
+            if (symbols == towerController.symbolNum)
             {
-                //TODO: change bgm and terrain
-                foreach (Transform symbol in symbols)
-                {
-                    Destroy(symbol.gameObject);
-                }
+                //TODO: change bgm and terrain and open door
+                _bgmsource.clip = towerController.nextBGM;
+                _bgmsource.Play();
+                towerController.nextTerrain.SetActive(true);
+                towerController.doors.SetActive(false);
+                symbols = 0;
             }
         }
     }
