@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -26,6 +27,7 @@ public class PlayerController : MonoBehaviour
 
     //my stuff
     public bool ended = false;
+    public Transform collectUI;
     public AudioSource _bgmsource;
     public AudioSource _stepaudio;
 
@@ -120,7 +122,9 @@ public class PlayerController : MonoBehaviour
     {
         if (other.tag == "Symbol")
         {
+            collectUI.GetChild(symbols).gameObject.GetComponent<RawImage>().color = new Color32(255, 0, 0, 100);
             symbols += 1;
+            Destroy(other.gameObject);
         }
 
         if (other.tag == "altar")
@@ -134,6 +138,11 @@ public class PlayerController : MonoBehaviour
                 towerController.nextTerrain.SetActive(true);
                 towerController.doors.SetActive(false);
                 symbols = 0;
+                collectUI.gameObject.SetActive(false);
+                foreach (Transform dot in collectUI)
+                {
+                    dot.gameObject.GetComponent<RawImage>().color = new Color32(255, 255, 255, 100);
+                }
             }
         }
     }

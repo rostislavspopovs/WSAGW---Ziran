@@ -9,15 +9,12 @@ public class TowerController : MonoBehaviour
     public GameObject doors;
     public GameObject nextTerrain;
 
-    // Start is called before the first frame update
-    void Start()
+    void OnTriggerEnter(Collider other)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (other.tag == "Player")
+        {
+            doors.SetActive(true);
+            other.GetComponent<PlayerController>().collectUI.gameObject.SetActive(true);
+        }
     }
 }
