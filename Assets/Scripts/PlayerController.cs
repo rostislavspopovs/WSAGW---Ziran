@@ -26,8 +26,8 @@ public class PlayerController : MonoBehaviour
 
     //my stuff
     public bool ended = false;
-    public AudioSource _stepaudio;
     public AudioSource _bgmsource;
+    public AudioSource _stepaudio;
 
     private bool walking;
     private int symbols;
