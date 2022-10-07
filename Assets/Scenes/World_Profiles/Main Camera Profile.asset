@@ -32,16 +32,16 @@ MonoBehaviour:
     overrideState: 1
     value: 3.8
   sampleDist:
-    overrideState: 0
-    value: 1
+    overrideState: 1
+    value: 1.1
   edgesOnly:
     overrideState: 1
-    value: 1
+    value: 0.628
   edgesOnlyBgColor:
     overrideState: 1
     value: {r: 1, g: 1, b: 1, a: 1}
   edgesColor:
-    overrideState: 0
+    overrideState: 1
     value: {r: 0, g: 0, b: 0, a: 1}
 --- !u!114 &11400000
 MonoBehaviour:
