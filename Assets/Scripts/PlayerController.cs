@@ -27,7 +27,6 @@ public class PlayerController : MonoBehaviour
 
     //my stuff
     public bool ended = false;
-    public Transform collectUI;
     public AudioSource _bgmsource;
     public AudioSource _stepaudio;
 
@@ -119,15 +118,8 @@ public class PlayerController : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "Symbol")
-        {
-            collectUI.GetChild(symbols).gameObject.GetComponent<RawImage>().color = new Color32(255, 0, 0, 100);
-            symbols += 1;
-            Destroy(other.gameObject);
-        }
-
-        if (other.tag == "altar")
+    { 
+        if (other.tag == "Altar")
         {
             TowerController towerController = other.transform.parent.gameObject.GetComponent<TowerController>();
             if (symbols == towerController.symbolNum)
@@ -135,14 +127,9 @@ public class PlayerController : MonoBehaviour
                 //TODO: change bgm and terrain and open door
                 _bgmsource.clip = towerController.nextBGM;
                 _bgmsource.Play();
-                towerController.nextTerrain.SetActive(true);
+                towerController.activateNextTerrain();
                 towerController.doors.SetActive(false);
-                symbols = 0;
-                collectUI.gameObject.SetActive(false);
-                foreach (Transform dot in collectUI)
-                {
-                    dot.gameObject.GetComponent<RawImage>().color = new Color32(255, 255, 255, 100);
-                }
+                Destroy(other.gameObject);
             }
         }
     }

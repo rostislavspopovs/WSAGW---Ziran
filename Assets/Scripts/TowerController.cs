@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TowerController : MonoBehaviour
+public abstract class TowerController : MonoBehaviour
 {
     public int symbolNum;
     public AudioClip nextBGM;
@@ -14,7 +14,8 @@ public class TowerController : MonoBehaviour
         if (other.tag == "Player")
         {
             doors.SetActive(true);
-            other.GetComponent<PlayerController>().collectUI.gameObject.SetActive(true);
         }
     }
+
+    public abstract void activateNextTerrain();
 }
