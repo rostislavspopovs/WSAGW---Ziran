@@ -34,6 +34,7 @@ public class Footpath : MonoBehaviour
         {
             footprint.gameObject.SetActive(true);
             footprint.GetComponent<Animation>().Play();
+            footprint.GetComponent<AudioSource>().Play();
             yield return new WaitForSeconds(stepPeriod);
         }
     }
