@@ -29,12 +29,15 @@ public class PlayerController : MonoBehaviour
     public bool ended = false;
     public AudioSource _bgmsource;
     public AudioSource _stepaudio;
+    public bool grass;
 
     private bool walking;
     private int symbols;
+    private int sample;
 
     //audio stuff
     public List<AudioClip> footstepSamples;
+    public List<AudioClip> grassFootstepSamples;
 
     private float tmpTimeBetweenTwoSteps = 0.25f;
     private float _Timer = 0f;
@@ -108,13 +111,13 @@ public class PlayerController : MonoBehaviour
         {
             _rigidbody.MovePosition(_rigidbody.position + transform.TransformDirection(_moveAmount) * Time.fixedDeltaTime);
         }
-        /**
+        
         if (walking && _grounded)
         {
             sample = 1 - sample;
             PlayFootstep(sample);
         }
-        **/
+        
     }
 
     void OnTriggerEnter(Collider other)
@@ -140,8 +143,14 @@ public class PlayerController : MonoBehaviour
         {
             if (_Timer >= tmpTimeBetweenTwoSteps)
             {
-
-                _stepaudio.clip = footstepSamples[sample];
+                if (!grass)
+                {
+                    _stepaudio.clip = footstepSamples[sample];
+                }
+                else
+                {
+                    _stepaudio.clip = grassFootstepSamples[sample];
+                }
 
                 int tmpRandomPitch = UnityEngine.Random.Range(-5, 6);
                 _stepaudio.pitch = 1 + (tmpRandomPitch * .0001f);
