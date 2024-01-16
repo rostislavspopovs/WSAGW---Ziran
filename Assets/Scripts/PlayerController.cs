@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
 
     //my stuff
     public bool ended = false;
+    public AudioClip[] audioTracks;
     public AudioSource _bgmsource;
     public AudioSource _stepaudio;
     public bool grass;
@@ -182,5 +183,11 @@ public class PlayerController : MonoBehaviour
             Cursor.visible = true;
             _cursorVisible = true;
         }
+    }
+
+    public void SetBGM(int trackNum)
+    {
+        _bgmsource.clip = audioTracks[trackNum];
+        _bgmsource.Play();
     }
 }
